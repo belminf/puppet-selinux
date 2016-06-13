@@ -41,19 +41,21 @@ define selinux::port (
   $protocol = undef,
 ) {
 
-  include selinux
+  include ::selinux
 
   if $protocol {
     validate_re($protocol, ['^tcp6?$', '^udp6?$'])
-    $protocol_switch="-p ${protocol} "
+    $protocol_switch = "-p ${protocol} "
+    $port_exec_command = "add_${context}_${port}_${protocol}"
   } else {
-    $protocol_switch=''
+    $protocol_switch = undef
+    $port_exec_command = "add_${context}_${port}"
   }
 
-  exec { "add_${context}_${port}":
+  exec { $port_exec_command:
     command => "semanage port -a -t ${context} ${protocol_switch}${port}",
     unless  => "semanage port -l|grep \"^${context}.*${protocol}.*${port}\"|grep -w ${port}",
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-    require => Class['selinux::package']
+    require => Class['selinux::package'],
   }
 }

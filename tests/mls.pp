@@ -12,10 +12,5 @@
 #
 
 class { '::selinux':
-  mode => 'disabled',
+  type => 'mls',
 }
-
-# Also acceptable
-# class { 'selinux':
-#   mode => 'permissive',
-# }

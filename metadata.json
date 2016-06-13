@@ -1,6 +1,6 @@
 {
 "name": "jfryman/selinux",
-"version": "0.2.4",
+"version": "0.4.0",
 "author": "jfryman",
 "summary": "This class manages SELinux on RHEL based systems",
 "license": "Apache-2.0",
@@ -21,7 +21,10 @@
     "operatingsystemrelease": [
       "19",
       "20",
-      "21"
+      "21",
+      "22",
+      "23",
+      "24"
     ]
   }
 ],
